@@ -72,6 +72,20 @@ REQUIRED_ARTIFACTS = (
 ALLOWED_MISSING = frozenset({
     "docs/tests/test_scaffolding.py",   # this file (cited from CLAUDE.md root)
     "emerald/orchestrate_204_2.py",     # Emerald-side proposal in EMERALD_ADAPTATION.md
+    # EXTENSION_PLAYBOOK.md proposes a hypothetical `coverage-monitor` agent
+    # as a worked example for authoring new Emerald agents. These paths
+    # don't exist yet by design — they describe what the operator would
+    # create if they pursued that agent.
+    "plugins/agent-plugins/coverage-monitor/agents/coverage-monitor.md",
+    "managed-agent-cookbooks/coverage-monitor/agent.yaml",
+    "subagents/news-scanner.yaml",
+    "subagents/thesis-checker.yaml",
+    "subagents/flag-writer.yaml",
+    # Cookbook-relative bare paths in EXTENSION_PLAYBOOK that illustrate
+    # the SKILL.md template via partial paths (the playbook says "see
+    # dcf-model/SKILL.md as the canonical example" not as a citation).
+    "dcf-model/SKILL.md",
+    "kyc-rules/SKILL.md",
 })
 
 # Citation regexes
