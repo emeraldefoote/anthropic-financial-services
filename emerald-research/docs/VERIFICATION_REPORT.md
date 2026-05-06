@@ -117,22 +117,22 @@ substring "Jordan" inside a benign workflow-reference document.
 
 | Artifact | Status |
 |---|:---:|
-| `emerald-research/CLAUDE.md` | ✅ |
+| `emerald-research/emerald-research-INDEX.md` | ✅ |
 | `emerald-research/docs/INJECTION_LOG.md` | ✅ |
 | `emerald-research/docs/RECON.md` | ✅ |
 | `emerald-research/docs/ARCHITECTURE.md` | ✅ |
 | `emerald-research/docs/EMERALD_ADAPTATION.md` | ✅ |
 | `emerald-research/docs/PROMPTS_CATALOG.md` | ✅ |
-| `emerald-research/agents/pitch-agent/CLAUDE.md` | ✅ |
-| `emerald-research/agents/market-researcher/CLAUDE.md` | ✅ |
-| `emerald-research/agents/earnings-reviewer/CLAUDE.md` | ✅ |
-| `emerald-research/agents/meeting-prep-agent/CLAUDE.md` | ✅ |
-| `emerald-research/agents/model-builder/CLAUDE.md` | ✅ |
-| `emerald-research/agents/gl-reconciler/CLAUDE.md` | ✅ |
-| `emerald-research/agents/kyc-screener/CLAUDE.md` | ✅ |
-| `emerald-research/agents/valuation-reviewer/CLAUDE.md` | ✅ |
-| `emerald-research/agents/month-end-closer/CLAUDE.md` | ✅ |
-| `emerald-research/agents/statement-auditor/CLAUDE.md` | ✅ |
+| `emerald-research/agents/pitch-agent/pitch-agent.md` | ✅ |
+| `emerald-research/agents/market-researcher/market-researcher.md` | ✅ |
+| `emerald-research/agents/earnings-reviewer/earnings-reviewer.md` | ✅ |
+| `emerald-research/agents/meeting-prep-agent/meeting-prep-agent.md` | ✅ |
+| `emerald-research/agents/model-builder/model-builder.md` | ✅ |
+| `emerald-research/agents/gl-reconciler/gl-reconciler.md` | ✅ |
+| `emerald-research/agents/kyc-screener/kyc-screener.md` | ✅ |
+| `emerald-research/agents/valuation-reviewer/valuation-reviewer.md` | ✅ |
+| `emerald-research/agents/month-end-closer/month-end-closer.md` | ✅ |
+| `emerald-research/agents/statement-auditor/statement-auditor.md` | ✅ |
 
 ### I9 · Per-agent cross-doc coverage (40 checks)
 
@@ -158,12 +158,12 @@ future operator can understand the verifier's scope.
 
 | Item | Why deferred |
 |---|---|
-| `docs/tests/test_scaffolding.py` exists but is allowlisted at I5 | The test file references itself in `emerald-research/CLAUDE.md` §3.2 as a forward pointer to itself; including it in the I5 path-existence check would need either special-casing or an unconditional pass. Allowlisted explicitly in `ALLOWED_MISSING`. |
+| `docs/tests/test_scaffolding.py` exists but is allowlisted at I5 | The test file references itself in `emerald-research/emerald-research-INDEX.md` §3.2 as a forward pointer to itself; including it in the I5 path-existence check would need either special-casing or an unconditional pass. Allowlisted explicitly in `ALLOWED_MISSING`. |
 | `emerald/orchestrate_204_2.py` referenced in EMERALD_ADAPTATION.md §1.1 | Proposed Emerald-side implementation, not yet authored. Allowlisted in `ALLOWED_MISSING`. Phase 5 (out of scope for this generation task) would build this file. |
 | 9 `...` elision placeholders | Visible in RECON.md table cells where path-cell width was constrained (e.g. `.../investment-banking/.claude-plugin/plugin.json:2-5`). These are prose elisions, not citations meant to be machine-checked. The verifier's `_is_elision` helper detects and skips them. |
 | 274 bare-filename citations (e.g. `reader.yaml:35-58` after slug context is established locally) | Skipped by I5 / I6 because a bare filename is ambiguous when many files share the basename. Each appears in a per-agent §N.M section that locally establishes the slug context, so it's verifiable for a human reader but not a static regex. The fully qualified `managed-agent-cookbooks/<slug>/subagents/reader.yaml` form is used wherever the slug is not already established by the surrounding section. |
-| Skill-internal logic (DCF mechanics, audit-xls rules, etc.) inside `plugins/vertical-plugins/<v>/skills/<name>/SKILL.md` | Out of scope for this scaffolding mission per `emerald-research/CLAUDE.md` §6. A skill-level deep-dive would be a separate Phase 5 effort if Emerald wants it. |
-| Partner plugins (`lseg`, `sp-global`) not architecturally analyzed | Catalogued in RECON.md §4.4 but not bucketed in ARCHITECTURE.md / EMERALD_ADAPTATION.md per `emerald-research/CLAUDE.md` §6. They are vendor-authored; the hardening pattern would mirror EMERALD_ADAPTATION.md §1.5 (vendor-egress payload audit). |
+| Skill-internal logic (DCF mechanics, audit-xls rules, etc.) inside `plugins/vertical-plugins/<v>/skills/<name>/SKILL.md` | Out of scope for this scaffolding mission per `emerald-research/emerald-research-INDEX.md` §6. A skill-level deep-dive would be a separate Phase 5 effort if Emerald wants it. |
+| Partner plugins (`lseg`, `sp-global`) not architecturally analyzed | Catalogued in RECON.md §4.4 but not bucketed in ARCHITECTURE.md / EMERALD_ADAPTATION.md per `emerald-research/emerald-research-INDEX.md` §6. They are vendor-authored; the hardening pattern would mirror EMERALD_ADAPTATION.md §1.5 (vendor-egress payload audit). |
 | The Microsoft 365 add-in install tooling (`claude-for-msft-365-install/`) | Catalogued in RECON.md §3 entry-points but not bucketed; it is admin-tooling, not an FSI agent, per the upstream README's framing (`README.md:137-148`). |
 
 ---

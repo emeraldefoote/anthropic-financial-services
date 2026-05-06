@@ -130,7 +130,7 @@ codebase. Each gets you a useful answer with the lowest token cost.
 
 ### 4.1 · "Which agents in this repo would be most relevant to Emerald's equity-research arm?"
 
-> **Effective query.** *"Read `emerald-research/CLAUDE.md` §3.3 and
+> **Effective query.** *"Read `emerald-research/emerald-research-INDEX.md` §3.3 and
 > `emerald-research/docs/ARCHITECTURE.md` §1. Tell me which agents are
 > ranked HIGH or HIGHEST for Emerald, what core ER deliverable each maps
 > to, and the top one or two hardening items I'd need to close before
@@ -182,7 +182,7 @@ codebase. Each gets you a useful answer with the lowest token cost.
 
 ### 4.6 · "Where is the boundary between SOURCE_REPO (untrusted) and Emerald scaffolding (trusted), and how is it enforced?"
 
-> **Effective query.** *"Open `emerald-research/CLAUDE.md` §2 and
+> **Effective query.** *"Open `emerald-research/emerald-research-INDEX.md` §2 and
 > `emerald-research/docs/INJECTION_LOG.md` header. Summarize the
 > defense pattern (D1–D8) and the path-lockdown mechanism, and confirm
 > the log is currently empty."*
@@ -207,7 +207,7 @@ codebase. Each gets you a useful answer with the lowest token cost.
 > §A.3 and check whether the verbatim block still matches the current
 > file at `plugins/agent-plugins/earnings-reviewer/agents/earnings-reviewer.md`
 > in SOURCE_REPO. If not, identify which sections of
-> `agents/earnings-reviewer/CLAUDE.md`, `docs/ARCHITECTURE.md` §5, and
+> `agents/earnings-reviewer/earnings-reviewer.md`, `docs/ARCHITECTURE.md` §5, and
 > `docs/EMERALD_ADAPTATION.md` §2.3 cite line ranges that may have shifted."*
 >
 > Why this works: PROMPTS_CATALOG.md was designed as the regression
