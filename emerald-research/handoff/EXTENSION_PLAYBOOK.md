@@ -333,8 +333,10 @@ flag list staged for analyst's morning review.
 **Subagents.** news-scanner (reader) · thesis-checker (critic) ·
 flag-writer (writer).
 
-**Time saved.** Replaces 30–45 min of analyst news-skimming each morning.
-Net: ~3 hours/analyst/week.
+**Posture shift.** Morning news-skim becomes a delta-driven exception
+report rather than a scan-everything exercise. Whether this redistributes
+analyst time toward judgment work or toward broader coverage is a pilot
+question, not a forecast.
 
 **Bucket.** (b) — same hardening as `earnings-reviewer`.
 
@@ -349,8 +351,10 @@ untrusted-with-extra-caution since they could be tampered with) ·
 compliance-runner (critic: cross-references against current Reg S-P / 204-2
 text via firm policy-MCP) · drafter (writer).
 
-**Time saved.** First drafts that the CCO can mark up rather than write
-from scratch. ~2 hours per incident or filing window.
+**Posture shift.** First-draft compliance correspondence becomes a CCO
+mark-up activity rather than a from-scratch authoring activity. The
+agent's value is consistency of language and reference-citing, not
+speed.
 
 **Bucket.** (b) — Reg S-P + Rule 204-2 acute. Compliance officer's review
 is the gate, not the agent.
@@ -365,7 +369,9 @@ positions in covered names, exits).
 position-runner (critic: dedupe, classify, cross-ref vs. last quarter via
 firm-MCP) · summary-writer (writer: 1-page brief per coverage name).
 
-**Time saved.** ~6 hours/analyst/quarter on a 30-name coverage list.
+**Posture shift.** Quarterly 13F review becomes a delta-driven exception
+report. Analyst attention concentrates on flagged changes rather than
+scanning every holder.
 
 **Bucket.** (b) — public filings only, low PII risk; 204-2 archival
 required.
@@ -381,8 +387,11 @@ client-email-write access could attempt to spoof) · holding-runner (critic:
 real-time positions via firm portfolio MCP) · violation-writer (writer:
 exception report for compliance).
 
-**Time saved.** Continuous monitoring replaces quarterly manual review;
-catches drift faster and reduces compliance findings.
+**Posture shift.** Continuous monitoring replaces quarterly manual
+review. Drift detection is faster; compliance findings are surfaced
+before audit rather than during. **Caveat:** continuous monitoring
+that surfaces too many false positives wastes more time than it saves;
+threshold tuning is part of pilot scope.
 
 **Bucket.** (b) — Reg S-P 2024 + Investment Advisers Act §206 fiduciary
 suitability acute. NPI handling required throughout.
@@ -397,8 +406,10 @@ analyst note + position-sizing recommendation.
 impact-modeler (critic: pulls historicals + does pro-forma calc via
 trusted MCPs) · note-writer (writer: post-announcement note).
 
-**Time saved.** Reduces "scramble" workflow on event days. ~1–2 hours per
-event.
+**Posture shift.** "Scramble" workflow on corporate-action days
+becomes a structured pipeline: announcement → impact model → draft
+note → analyst mark-up. The agent's value is consistency under time
+pressure, not speed alone.
 
 **Bucket.** (b) — research product output, 204-2 retention applies.
 

@@ -52,8 +52,8 @@ threat model).
 Use the bucket table from `ARCHITECTURE.md` §1 as the spine. For each of
 the 10 agents, state:
 - Mandate fit (high / partial / low / out-of-mandate)
-- Estimated analyst time saved per week (qualitative; refine with §4
-  numbers if available)
+- Posture / role-shape change if deployed (qualitative — what changes
+  in how the work gets done; *not* a time-savings number)
 - Reg S-P / Rule 204-2 / AML implications
 
 Suggested condensed verdict table:
@@ -122,6 +122,12 @@ This is the CEO frame.
   author *all* future internal AI agents. Doing nothing means losing the
   reference template for safe agent design.
 
+**Avoid framing competitive cost in terms of "hours saved by peers"** —
+we don't have peer data and inventing it weakens the rest of the memo.
+Frame in terms of *capability gap* (peer firms with platform engineering
+will pilot these or build equivalents) and *option value* (these are
+patterns we'd want to know whether or not we deploy the templates).
+
 ## §6 · How we might use these to build *better* agents for Emerald (1 page)
 
 This is the section unique to Emerald — answers "what's in it for us
@@ -143,18 +149,32 @@ Cover:
 
 Pointers: `PATTERNS.md` (whole), `EXTENSION_PLAYBOOK.md` §4 + §5.
 
-## §7 · Workflow rebuild — analyst time savings (1 page — concrete examples)
+## §7 · Workflow rebuild — how the work changes shape (1 page — concrete examples)
 
 CEO wants to see "what does this look like Tuesday morning". Cover:
 
-- Earnings-week reshape: ~32h → ~12h analyst time per week (Q-end).
-- Weekly sector primer: ~5h → ~1.5h.
+- Earnings-week role-shape change: analyst shifts from per-name
+  doer to per-name reviewer + approver; mechanical extraction +
+  model rolling moves to the agent; thesis update + estimate
+  revision + position-sizing decision stay with the analyst.
+- Weekly sector primer: PM reviews + refines universe boundary +
+  picks names for deep modeling, instead of waiting for analyst to
+  build from scratch.
 - Day-in-the-life of an analyst on this stack — supervisor + judgment
   role, not doer.
-- Phased rollout (Q1 foundation, Q2 first agent in prod, Q3 expansion).
+- Phased rollout (Q1 foundation + baseline measurement, Q2 first agent
+  in prod with pilot measurement, Q3 expansion + first honest
+  retrospective).
+
+**Do not put quantitative time-savings claims in this section.** Pilot
+measurement comes in Q2. Until then, every number would be
+speculation, which is inconsistent with how the firm holds its
+research output to evidence-supported claims (CFA V(A) Diligence
+applies internally too). State the role-shape change; let the pilot
+quantify.
 
 Pointers: `WORKFLOW_DESIGN.md` §2 (earnings week), §3 (sector primer),
-§6 (day-in-the-life), §8 (phased rollout).
+§6 (day-in-the-life), §8 (phased rollout), §9 (note on quantification).
 
 ## §8 · Risks and obligations (0.5–1 page)
 
@@ -209,8 +229,9 @@ Pre-empt likely CIO/CEO questions with sourced one-paragraph answers:
 - *"How long until our first pilot is in production?"* — Q2 if foundation
   ships in Q1.
 - *"Will this replace analysts?"* — No. Reshape role from doer to
-  supervisor + judgment. Time saved = capacity for more coverage / deeper
-  research.
+  supervisor + judgment. Whether freed capacity goes to broader
+  coverage, deeper research, or is absorbed by review overhead is a
+  pilot observation, not a forecast.
 - *"What if Anthropic changes the underlying agents next month?"* — Our
   fork is at SHA `bb4a2b3...`; PROMPTS_CATALOG.md is a regression anchor;
   upstream changes are detectable and reviewable.
@@ -244,3 +265,10 @@ Pre-empt likely CIO/CEO questions with sourced one-paragraph answers:
   than strategic-decision.
 - The §9 decision asks must be signable. Decisions that aren't binary
   yes/no end up un-decided.
+- **No quantitative analyst-time claims anywhere in the memo.** This
+  is non-negotiable. The same evidence-discipline Emerald applies to
+  research output applies internally. If the memo asserts "X hours
+  saved per week" before any pilot has measured it, the rest of the
+  memo's credibility is weaker because the reader can identify one
+  unsupported claim. State posture and role-shape changes; let Q2
+  pilot data quantify.

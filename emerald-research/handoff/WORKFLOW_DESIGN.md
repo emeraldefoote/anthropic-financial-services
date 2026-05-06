@@ -1,13 +1,17 @@
-# WORKFLOW_DESIGN.md — How to chain these for analyst time savings
+# WORKFLOW_DESIGN.md — How to chain these into Emerald deployment plans
 
-> **What this is.** Worked examples of Emerald-style analyst workflows
-> reconstructed around the FSI agents. Each example shows the chain
+> **What this is.** Worked plans for how Emerald-style analyst workflows
+> could be reconstructed around the FSI agents. Each plan shows the chain
 > (steering events → handoff edges → outputs), the §204-2 archive points,
-> the human-approval gates, and a qualitative time-savings estimate.
+> and the human-approval gates.
 >
-> **The unit of value.** Time saved per analyst per week, on workflows
-> that already happen — not net-new outputs, just faster paths to the
-> same deliverable.
+> **No quantitative claims.** This document deliberately avoids
+> "saves X hours" or capacity-reallocation estimates. Until a pilot
+> measures actual analyst behavior with these agents in production, any
+> number would be speculation. CFA V(A) Diligence + §204A "reasonably
+> designed" supervision both argue against putting numbers in front of
+> decision-makers before evidence exists. The plan below describes how
+> the workflow *changes shape*; quantification is a Q2+ pilot output.
 
 ---
 
@@ -34,24 +38,22 @@ row per agent in the chain plus a `handoff_id` joining them.
 
 ---
 
-## §2 · Worked example: earnings week (current vs proposed)
+## §2 · Worked example: earnings week
 
-### §2.1 · Status quo
+### §2.1 · Status quo (current Emerald earnings-week shape)
 
-For a 30-name coverage list, when Q-end earnings season hits, an Emerald
-analyst's typical week looks like this (estimated; refine against actual
-firm data):
+For a covered name reporting in-quarter, the current analyst rhythm is
+roughly:
 
-| Day | Activity | Hours per analyst |
-|---|---|---:|
-| Mon | Pre-earnings setup, scenario tables for the 6–8 names reporting that week | 4 |
-| Tue–Fri | Per-name (assume 6–8 names report): pull transcript, read 10-Q/8-K, drop actuals into model, roll estimates, draft note | 4 × 8 = ~32 |
-| Fri | Variance commentary, morning-note recap | 3 |
-| **Total** | | **~39 hours** |
+- Pre-earnings: scenario tables, key metrics to watch, position sizing.
+- Day-of: pull the transcript, read the 10-Q/8-K, drop actuals into the
+  model, roll estimates, draft a variance read.
+- Post-earnings: thesis update, note draft, morning-note recap.
 
-Most of those 32 hours is mechanical: transcript reading, actuals dropping,
-model rolling, variance flagging. The analyst's *judgment* is concentrated
-in the thesis-update + estimate-revision moments.
+The mechanical steps (transcript reading, actuals extraction, estimate
+rolling, variance flagging) consume the bulk of analyst time during
+earnings season. The judgment-heavy steps (thesis update, estimate
+revision, position-sizing decision) consume the bulk of analyst *value*.
 
 ### §2.2 · Proposed earnings-week workflow (Anthropic agents + Emerald hardening)
 
@@ -103,26 +105,42 @@ Tue–Fri (per-name workflow, fanned out)
    PUBLISH (downstream of agent surface — outside scope)
 ```
 
-### §2.3 · Estimated time saved
+### §2.3 · How the analyst's role changes shape
 
-| Step | Status quo (analyst) | Proposed (analyst supervises) | Savings |
-|---|---:|---:|---:|
-| Transcript reading + actuals extraction | 1.5h × 7 names | 0.4h × 7 (review reader output) | ~7.5h |
-| Model rolling | 1h × 7 names | 0.3h × 7 (review delta log) | ~5h |
-| Variance commentary | 0.5h × 7 | 0.1h × 7 | ~3h |
-| Note draft | 1h × 7 | 0.4h × 7 (mark up draft) | ~4h |
-| **Total per analyst per earnings week** | **~32h** | **~12h** | **~20h saved** |
+The shift is from doer to supervisor + judgment-applier:
 
-Caveats:
-- Numbers are illustrative; refine against actual Emerald analyst time data.
-- Savings only realized after Emerald has built the eval suite (V(A)
-  diligence) and analysts trust the agent outputs enough to operate in
-  supervise-and-approve mode rather than re-do mode.
-- The first 2–3 earnings weeks under this workflow probably *cost* time
-  while analysts learn what to trust. Realistic break-even: quarter 2 of
-  pilot.
+| Step | Status quo | Proposed |
+|---|---|---|
+| Transcript reading + actuals extraction | Analyst reads + extracts | Reader subagent extracts; analyst reviews schema-validated output |
+| Model rolling | Analyst updates model | model-updater subagent rolls; analyst reviews delta log |
+| Variance commentary | Analyst writes flux | model-updater drafts flux; analyst marks up |
+| Note draft | Analyst drafts | note-writer subagent drafts; analyst marks up |
+| Thesis update | Analyst (judgment) | Analyst (judgment) — unchanged |
+| Estimate revision | Analyst (judgment) | Analyst (judgment) — unchanged |
+| Approval to publish | Analyst | Analyst (typed approval gate) |
 
-### §2.4 · §204-2 archival points
+**The judgment moments stay with the analyst.** What changes is the
+mechanical work *upstream* of judgment.
+
+### §2.4 · Pilot measurement plan
+
+Quantitative claims about analyst-time impact only meaningful after
+a pilot under controlled conditions. Recommended pilot measurements
+(per `EMERALD_ADAPTATION.md` §1.6 + §2.3):
+
+- **Baseline** — measure current analyst time on a representative
+  earnings event under current workflow, before agent rollout.
+- **Pilot** — repeat measurement after agents are in production for
+  at least one full earnings cycle (typically Q2 of pilot).
+- **Distinct measures** — total elapsed time, analyst review time,
+  approval-cycle time, error-detection rate, post-publication revision
+  rate.
+- **Not the same as savings** — capacity freed must be tracked against
+  what the analyst does *with* the freed time (more coverage, deeper
+  research, etc.). Capacity reallocation is the policy decision, not an
+  agent-output.
+
+### §2.5 · §204-2 archival points
 
 Each archive row captures:
 - `invocation_id` (UUID)
@@ -149,9 +167,8 @@ Rule 204-2 retention. Required before any production use.
 ### §3.1 · Status quo
 
 Friday afternoon: PM asks for a fresh primer on a sector under review,
-plus 3–5 ideas that best express a working theme. Analyst spends 4–6
-hours pulling sector data, drafting an overview, building comps, and
-listing names.
+plus 3–5 ideas that best express a working theme. Analyst pulls sector
+data, drafts an overview, builds comps, and lists names.
 
 ### §3.2 · Proposed workflow
 
@@ -182,21 +199,26 @@ listing names.
    PM REVIEW + APPROVAL  (typed gate)
 ```
 
-### §3.3 · Time saved
+### §3.3 · How the role changes shape
 
-Status quo: ~5 hours analyst.
-Proposed: ~1.5 hours (review primer, refine universe boundary,
-mark up note-writer output).
-**Net: ~3.5 hours/weekly primer.**
+The PM's interaction shifts from "kick off the primer + wait for next
+week" to "review the primer draft + refine the universe boundary + pick
+the 1–3 names that most warrant deep modeling". The analyst's role
+becomes mark-up of the note-writer output rather than first-draft
+authorship of every section.
 
-### §3.4 · V(A) checkpoint
+### §3.4 · V(A) checkpoint — this MUST be wired before the workflow goes live
 
 The `idea-generation` skill (used inside `market-researcher`) defaults to
 a current-listed CapIQ universe — survivorship-biased per
-`EMERALD_ADAPTATION.md` §2.2.1. **Mandatory** before this workflow goes
-live: replace the universe input with an Emerald-controlled universe that
+`EMERALD_ADAPTATION.md` §2.2.1. **Mandatory** before this workflow is
+used: replace the universe input with an Emerald-controlled universe that
 backfills delisted names. Document the universe-construction rule for
 V(A) reasonable basis.
+
+This is non-negotiable: an ideas shortlist drawn from a survivorship-
+biased universe is a defective research product, regardless of what the
+agent does downstream.
 
 ---
 
@@ -206,7 +228,7 @@ V(A) reasonable basis.
 
 Advisor preparing for a quarterly client meeting: pull holdings, review
 recent activity in CRM, scan news touching the client's portfolio, draft
-talking points and a suggested agenda. ~45-60 min per meeting.
+talking points and a suggested agenda.
 
 ### §4.2 · Proposed workflow — REG S-P 2024 acute
 
@@ -234,10 +256,9 @@ talking points and a suggested agenda. ~45-60 min per meeting.
                                 approves)
 ```
 
-### §4.3 · Time saved + risk
+### §4.3 · Posture and risk
 
-- Time saved: ~30 min/meeting × meetings/week.
-- **Reg S-P 2024 risk**: pack contents are NPI; egress proxy + advisor
+- **Reg S-P 2024 acute** — pack contents are NPI; egress proxy + advisor
   approval gate + 30-day breach notification runbook all required before
   this enters production.
 - **Talking points are suitability-adjacent** — advisor must mark up before
@@ -280,62 +301,65 @@ T+15 days post quarter-end (13F deadline)
    PM REVIEW (typed gate) + analyst follow-up on flagged names
 ```
 
-**Time saved:** ~6 hours/quarter on a 30-name coverage list.
-
 **Risk profile:** low — public filings only, no client NPI. Standard
 204-2 retention applies.
+
+**Posture shift:** quarterly 13F review becomes a delta-driven exception
+report rather than a scan-everything exercise.
 
 ---
 
 ## §6 · Day-in-the-life — proposed analyst Tuesday during earnings week
 
-A concrete-as-possible sketch of how an Emerald analyst's day reshapes:
+A concrete-as-possible sketch of how an Emerald analyst's Tuesday during
+earnings week reshapes — focused on *role* not *clock*:
 
 ```
-07:00  Morning brief (existing process — unchanged)
+Morning brief
+  Existing process — unchanged.
 
-07:30  REVIEW overnight earnings-reviewer outputs (3 names reported overnight)
-       Agent has produced for each:
-         - ./out/model-TICKER.xlsx  (actuals dropped, estimates rolled)
-         - ./out/note-TICKER.docx   (variance + read-through draft)
-         - §204-2 archive row pending approval
-       
-       Analyst spends ~15 min per name reviewing the variance table and
-       reading-the-call summary. Approves model + marks up note draft.
-       Approval action is the typed-tool-call gate; archive row updates.
+Review overnight earnings-reviewer outputs
+  For each name that reported overnight, the agent has produced:
+    - ./out/model-TICKER.xlsx  (actuals dropped, estimates rolled)
+    - ./out/note-TICKER.docx   (variance + read-through draft)
+    - §204-2 archive row pending approval
 
-09:00  Morning meeting (existing — uses morning-note skill output as input,
-       unchanged)
+  Analyst reviews variance table and read-the-call summary per name.
+  Approves model + marks up note draft. Approval action is the
+  typed-tool-call gate; archive row updates.
 
-09:30  Three more names reporting today; analyst kicks off earnings-reviewer
-       fan-out (one CMA invocation per name). Workflow engine schedules
-       ~45 min per name; analyst returns at noon to review the first two.
+Morning meeting
+  Existing — uses morning-note skill output as input. Unchanged.
 
-10:00  PM asks for a fresh primer on energy-services consolidation theme.
-       Analyst kicks off market-researcher. Returns to do other work.
+Afternoon-reporting names: kick off earnings-reviewer fan-out
+  Workflow engine schedules per-name CMA invocations. Analyst returns
+  later to review outputs.
 
-12:00  Review market-researcher output: primer draft + 5-name idea shortlist.
-       Marks up. Picks 2 names for deeper modeling. Triggers 
-       handoff_request → model-builder for each.
+PM request: fresh sector primer
+  Analyst kicks off market-researcher. Returns to do other work.
 
-14:00  Reviews 11am earnings-reviewer outputs (the first two of the 
-       afternoon-reporting names). Approves both.
+Review market-researcher output
+  Marks up primer draft. Picks names for deeper modeling. Triggers
+  handoff_request → model-builder for each.
 
-15:30  model-builder outputs land for the 2 marked-up names. Analyst
-       reviews the auditor's pass/fail report, approves models.
+Reviews afternoon-reporting earnings-reviewer outputs
+  Per-name model + note review. Approve.
 
-16:00  Last name of the day reports. Analyst kicks off earnings-reviewer.
+Reviews model-builder outputs for the picked names
+  Reviews auditor's pass/fail report. Approves models.
 
-16:45  Review final name's output. Approve. End of day.
-
-[~3 hours of focused review work replaced what would have been ~10 hours
-of mechanical extraction + model rolling.]
+End-of-day final name review
+  Approve. End of day.
 ```
 
 **The shift in analyst role:** from doer to supervisor + judgment-applier.
 The agent does the mechanical work; the analyst spends time on the
 high-value judgment moments (thesis update, estimate revision, idea
-selection).
+selection, position sizing).
+
+**Whether this saves time, redistributes time, or simply changes the
+shape of the work** is a question only the pilot can answer. **Do not
+forecast it.**
 
 ---
 
@@ -351,27 +375,38 @@ These patterns look attractive but break the threat model:
 | Letting the agent kick off its own follow-on invocations | Removes operator/PM from the loop; loses approval gate | Emit `handoff_request`; the workflow engine + human approval triggers the next step |
 | Running multiple agents against the same artifact concurrently | Race conditions on `./out/` filename collision; non-deterministic | Serialize chained invocations through the workflow engine |
 | Skipping eval runs after a model-version change | Behavior drift; V(A) Diligence violation | Re-run the eval set on every model version pin change before resuming production traffic |
+| Forecasting time savings before pilot data exists | Misleads decision-makers; CFA V(A) Diligence violation; may distort capacity-allocation choices | State posture and shape changes only; measure during pilot |
 
 ---
 
 ## §8 · Phased rollout proposal
 
-A defensible 3-quarter rollout for Emerald:
+A defensible 3-quarter rollout for Emerald. **No timeline-or-budget
+estimates here** — the rollout *shape* is the durable claim; effort and
+duration are platform-engineering scoping work.
 
 ### Q1 · Foundation (no production agent yet)
 
 - Build the §1.1 archive store + §1.2 approval-gate harness.
 - Build the §1.5 vendor-egress proxy.
 - Build the §1.6 eval framework + initial eval set for `earnings-reviewer`.
-- Pilot `earnings-reviewer` against 3–5 historical earnings events with
+- Pilot `earnings-reviewer` against historical earnings events with
   archived golden truth. Measure variance-table accuracy + note-draft
-  quality. Cost: platform engineering + 2 analysts × 50% time × 13 weeks.
+  quality. Publish pilot results before any production traffic.
+- **Establish the baseline measurement protocol** — current analyst
+  time on representative earnings events. This is the only honest
+  reference point against which a future "did it help?" question can
+  be answered.
 
 ### Q2 · First production agent
 
-- Production-deploy `earnings-reviewer` for 3–5 covered names.
-- Track: time saved, accuracy, false flag rate, analyst approval
-  rate, archive completeness audits.
+- Production-deploy `earnings-reviewer` for a small named set of covered
+  names (the pilot cohort).
+- Track: accuracy, false-flag rate, analyst approval rate, archive
+  completeness audits, post-publication revision rate.
+- **Track but do not pre-commit to** capacity-reallocation outcomes.
+  Whether freed capacity goes to broader coverage, deeper research, or
+  is absorbed by review overhead is observable, not predictable.
 - Concurrently: build eval set for `model-builder`; pilot it.
 - Author first Emerald-specific agent (suggest `coverage-monitor` or
   `13F-tracker` — neither involves NPI; both have low Reg S-P risk).
@@ -383,5 +418,34 @@ A defensible 3-quarter rollout for Emerald:
 - Production-deploy first Emerald-authored agent.
 - Begin Reg S-P review for `meeting-prep-agent` if Emerald Advisors arm
   decides to pilot it.
-- Conduct mid-year V(A) review: agents in production vs. analyst time
-  saved vs. error rate.
+- Conduct mid-year V(A) review: agents in production vs. observed analyst
+  workflow shape vs. error/revision rates. **This is the first review
+  where retrospective analyst-time data is honest input.** Forward
+  forecasts can begin to be made *from observed data*, not before.
+
+---
+
+## §9 · A note on quantification
+
+Throughout this document, we deliberately decline to estimate "hours
+saved per week" or "capacity freed". Those numbers are tempting in a
+proposal because they make the case feel concrete, but:
+
+- **They aren't measured** — they are guesses dressed up as
+  estimates. Decision-makers should distinguish.
+- **They mislead capacity allocation** — if a CIO commits headcount
+  reduction to a forecast that doesn't materialize, the firm is worse
+  off than if no commitment was made.
+- **They violate V(A) Diligence** — a research firm's discipline about
+  what it claims with what evidence applies internally too. We don't
+  hold ourselves to a lower epistemic standard than we hold our
+  research output to.
+- **The honest deliverable is the workflow shape change.** If the
+  shape change is sound, the operational metric (whatever it ends up
+  being) will follow. If the shape change is not sound, no number
+  forecast in advance will rescue it.
+
+When the pilot produces measured data, *that* is when quantification
+enters the conversation — and even then, framed as "observed during
+pilot, subject to revision as scope changes" rather than as durable
+forecasts.

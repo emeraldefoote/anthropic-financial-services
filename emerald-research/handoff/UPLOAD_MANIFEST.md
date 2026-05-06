@@ -35,7 +35,7 @@ report-drafting session.
 |---|---|---:|---|
 | 5 | `../docs/EMERALD_ADAPTATION.md` | 19.7 KB | The hardening playbook — repo-wide hooks + per-agent deltas. Drives the §4 cost section of the report. |
 | 6 | `EXTENSION_PLAYBOOK.md` | 19.0 KB | How to author Emerald-specific agents on top of the patterns. Drives the §6 "build better agents" section. |
-| 7 | `WORKFLOW_DESIGN.md` | 17.4 KB | Time-savings worked examples + day-in-the-life + phased rollout. Drives the §7 + §9 sections. |
+| 7 | `WORKFLOW_DESIGN.md` | 17.4 KB | Worked deployment-plan examples (earnings week, sector primer, meeting prep) + day-in-the-life role-shape sketches + phased rollout. **Deliberately no time-savings numbers** — pilot measurement only. Drives the §7 + §9 report sections. |
 
 **Tier 1 + Tier 2** together (7 files, 126 KB) is the **recommended baseline
 upload**. Everything the CIO/CEO memo needs is in this set.
@@ -134,8 +134,8 @@ When you start the CIO/CEO report-drafting session, prime claude.ai with:
 
 This ordering primes the model with patterns first (architectural
 foundation) → contents (what's in the box) → applicability (compliance
-buckets) → cost (hardening playbook) → time-savings (concrete examples)
-→ structure (the outline).
+buckets) → cost (hardening playbook) → workflow-shape changes (concrete
+deployment plans) → structure (the outline).
 
 ---
 
@@ -166,8 +166,11 @@ buckets) → cost (hardening playbook) → time-savings (concrete examples)
 - **Emerald's existing AI rollout plan** — already in your project
   instructions per your message; not duplicated here.
 - **Emerald's current analyst workflow time data** — `WORKFLOW_DESIGN.md`
-  uses illustrative numbers (e.g. ~32h earnings week → ~12h). Replace with
-  measured data before the report cites them.
+  describes role-shape changes only and deliberately does *not* assert
+  time-savings. Baseline measurement of analyst time on representative
+  tasks is recommended *before* any pilot, so that Q2+ pilot data has
+  a reference point. Until that baseline exists, no quantitative claim
+  about savings should appear in any internal communication.
 - **Emerald-specific MCP wiring** — the agents' `agent.yaml` files use
   env-var placeholders (`${FACTSET_MCP_URL}` etc.); the actual URL/auth
   layer is Emerald platform-engineering work.
