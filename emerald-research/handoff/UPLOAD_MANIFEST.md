@@ -67,16 +67,16 @@ the report or follow-up Q&A focuses on one agent at a time.
 
 | # | File | Size | Purpose |
 |---|---|---:|---|
-| 11 | `../agents/earnings-reviewer/CLAUDE.md` | 2.7 KB | Earnings agent quick reference. Highest Emerald relevance. |
-| 12 | `../agents/market-researcher/CLAUDE.md` | 2.7 KB | Sector-primer agent quick reference. |
-| 13 | `../agents/model-builder/CLAUDE.md` | 2.8 KB | DCF/comps agent quick reference. |
-| 14 | `../agents/meeting-prep-agent/CLAUDE.md` | 2.9 KB | Wealth-side agent (Reg S-P acute). |
-| 15 | `../agents/kyc-screener/CLAUDE.md` | 3.1 KB | KYC/AML agent (RIA AML rule). |
-| 16 | `../agents/gl-reconciler/CLAUDE.md` | 3.0 KB | Canonical reader-pattern reference. |
-| 17 | `../agents/pitch-agent/CLAUDE.md` | 3.5 KB | IB agent (out of mandate). |
-| 18 | `../agents/valuation-reviewer/CLAUDE.md` | 2.8 KB | Private-fund vehicle only. |
-| 19 | `../agents/month-end-closer/CLAUDE.md` | 2.5 KB | Corp-accounting agent. |
-| 20 | `../agents/statement-auditor/CLAUDE.md` | 2.4 KB | LP statement audit (private-fund). |
+| 11 | `../agents/earnings-reviewer/earnings-reviewer.md` | 2.7 KB | Earnings agent quick reference. Highest Emerald relevance. |
+| 12 | `../agents/market-researcher/market-researcher.md` | 2.7 KB | Sector-primer agent quick reference. |
+| 13 | `../agents/model-builder/model-builder.md` | 2.8 KB | DCF/comps agent quick reference. |
+| 14 | `../agents/meeting-prep-agent/meeting-prep-agent.md` | 2.9 KB | Wealth-side agent (Reg S-P acute). |
+| 15 | `../agents/kyc-screener/kyc-screener.md` | 3.1 KB | KYC/AML agent (RIA AML rule). |
+| 16 | `../agents/gl-reconciler/gl-reconciler.md` | 3.0 KB | Canonical reader-pattern reference. |
+| 17 | `../agents/pitch-agent/pitch-agent.md` | 3.5 KB | IB agent (out of mandate). |
+| 18 | `../agents/valuation-reviewer/valuation-reviewer.md` | 2.8 KB | Private-fund vehicle only. |
+| 19 | `../agents/month-end-closer/month-end-closer.md` | 2.5 KB | Corp-accounting agent. |
+| 20 | `../agents/statement-auditor/statement-auditor.md` | 2.4 KB | LP statement audit (private-fund). |
 
 **Tier 4 use case:** when you need the per-agent quick-start with file
 citations, and you don't want claude.ai re-deriving them from
@@ -90,7 +90,7 @@ Upload only for due-diligence completeness or audit posture.
 
 | # | File | Size | Purpose |
 |---|---|---:|---|
-| 21 | `../CLAUDE.md` (root) | 13.4 KB | The scaffolding's own navigation index — useful if a claude.ai session needs the full doc map. |
+| 21 | `../emerald-research-INDEX.md` (root) | 13.4 KB | The scaffolding's own navigation index — useful if a claude.ai session needs the full doc map. |
 | 22 | `../docs/INJECTION_LOG.md` | 1.8 KB | Empty-body surveillance log — proves no D1–D7 triggers were found. Audit artifact. |
 | 23 | `../docs/tests/test_scaffolding.py` | 17.4 KB | The pytest verification suite. Runnable; documents the integrity invariants. |
 

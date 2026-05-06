@@ -58,7 +58,7 @@ NAMED_AGENTS = (
 )
 
 REQUIRED_ARTIFACTS = (
-    "CLAUDE.md",
+    "emerald-research-INDEX.md",
     "docs/INJECTION_LOG.md",
     "docs/RECON.md",
     "docs/ARCHITECTURE.md",
@@ -229,9 +229,9 @@ def test_I4_required_top_level_artifacts_exist(rel):
 
 
 @pytest.mark.parametrize("slug", NAMED_AGENTS)
-def test_I4_per_agent_claude_mirror_exists(slug):
-    p = SCAFFOLDING_ROOT / "agents" / slug / "CLAUDE.md"
-    assert p.exists(), f"Per-agent mirror missing: agents/{slug}/CLAUDE.md"
+def test_I4_per_agent_mirror_exists(slug):
+    p = SCAFFOLDING_ROOT / "agents" / slug / f"{slug}.md"
+    assert p.exists(), f"Per-agent mirror missing: agents/{slug}/{slug}.md"
 
 
 # ─── I5 + I6 — citation existence + line-range integrity ────────────────────
