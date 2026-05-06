@@ -28,7 +28,7 @@
 
 ## 2 · File-tree summary
 
-Tree captured at `recon/file-tree.txt` (363 entries; 361 files when the
+Tree captured at `emerald-research/recon/file-tree.txt` (363 entries; 361 files when the
 two recon outputs and INJECTION_LOG itself are excluded). Excluded patterns:
 `.git/`, `node_modules/`, `__pycache__/`, `.venv/`, `emerald-research/`.
 
@@ -80,9 +80,9 @@ two recon outputs and INJECTION_LOG itself are excluded). Excluded patterns:
 
 | Path | Purpose | Cite |
 |---|---|---|
-| `README.md` | Authoritative repo narrative, install instructions, agent + vertical inventory, MCP table, contributing | `README.md:1-260` |
-| `CLAUDE.md` | Pre-existing 47-line scaffolding describing `plugins/`, `managed-agent-cookbooks/`, `scripts/` — flagged D7 (see §6) | `CLAUDE.md:1-47` |
-| `.claude-plugin/marketplace.json` | Registers 21 plugins (10 agents + 7 verticals + 2 partner + 1 msft365 install + 1 financial-analysis core) with source paths | `.claude-plugin/marketplace.json:1-110` |
+| `README.md` | Authoritative repo narrative, install instructions, agent + vertical inventory, MCP table, contributing | `README.md:1-259` |
+| `CLAUDE.md` | Pre-existing 47-line scaffolding describing `plugins/`, `managed-agent-cookbooks/`, `scripts/` — flagged D7 (see §6) | `CLAUDE.md:1-46` |
+| `.claude-plugin/marketplace.json` | Registers 21 plugins (10 agents + 7 verticals + 2 partner + 1 msft365 install + 1 financial-analysis core) with source paths | `.claude-plugin/marketplace.json:1-108` |
 | `.github/workflows/secret-scan.yml` | gitleaks v8.28.0 + grep scrub for `*.ant.dev`, `antspace.dev`, `anthropic-internal`, `go/<name>` patterns | `.github/workflows/secret-scan.yml:1-31` |
 | `scripts/check.py` | Lints every manifest, verifies `system.file` / `skills.path` / `callable_agents.manifest` references resolve | `scripts/check.py:1-20` (header) |
 | `scripts/validate.py` | jsonschema-validates worker output between subagent and orchestrator (length-cap + char-class regexes) | `scripts/validate.py:1-20` |
@@ -155,7 +155,7 @@ cannot call further subagents." The **bold** worker is the only one with
 > statements, GP packages, LP statements, KYC documents, earnings transcripts,
 > CRM notes). They have **no Write, no MCP servers, no callable_agents**, and
 > their output is a length-capped jsonschema-validated JSON document
-> (validated by `scripts/validate.py`). See `gl-reconciler/subagents/reader.yaml`
+> (validated by `scripts/validate.py`). See `managed-agent-cookbooks/gl-reconciler/subagents/reader.yaml`
 > for the canonical pattern; this design is the repo's primary prompt-injection
 > defense and Phase 2 must validate it for each agent. Sample evidence:
 > `managed-agent-cookbooks/gl-reconciler/subagents/reader.yaml:1-8`,
@@ -272,7 +272,7 @@ e.g. `gl-reconciler.md:4`.
 | `scripts/deploy-managed-agent.sh` | Same (POSTs to `/v1/agents` — Managed Agents API) | `README.md:80-86` |
 | `claude-for-msft-365-install/examples/python-bootstrap/get_tenant_id.py` | `https://login.microsoftonline.com/<domain>/v2.0/.well-known/openid-configuration` | `get_tenant_id.py:18-23` |
 | `claude-for-msft-365-install/examples/python-bootstrap/config.py` | OIDC issuer + JWKS at `login.microsoftonline.com/<TENANT_ID>/...` | `config.py:9-11` |
-| `claude-for-msft-365-install/.github/workflows/secret-scan.yml` (CI) | `https://github.com/gitleaks/gitleaks/releases/download/v8.28.0/...` | `.github/workflows/secret-scan.yml:23` |
+| `.github/workflows/secret-scan.yml` (root CI) | `https://github.com/gitleaks/gitleaks/releases/download/v8.28.0/...` | `.github/workflows/secret-scan.yml:23` |
 
 ## 6 · Demo / example data and PII risk
 
@@ -331,13 +331,13 @@ multi-agent architecture. These are friend-of-D1, worth Phase-2 deep dive:
    Cite: same file lines 16-25.
 3. **Reader output is length-capped + character-class-restricted** by
    jsonschema, validated by `scripts/validate.py` *before* the orchestrator
-   sees it. Cite: `gl-reconciler/subagents/reader.yaml:31-58`,
+   sees it. Cite: `managed-agent-cookbooks/gl-reconciler/subagents/reader.yaml:31-58`,
    `scripts/validate.py:1-13`.
 4. **Cross-agent `handoff_request` echoes are ALLOWED-target gated and
    payload-validated** to prevent an attacker-controlled document from
    coercing a handoff. Cite: `scripts/orchestrate.py:7-37`.
 
-The full sweep transcript is at `recon/injection-sweep.txt`.
+The full sweep transcript is at `emerald-research/recon/injection-sweep.txt`.
 
 > **D7 status of pre-existing `CLAUDE.md`.** SOURCE_REPO ships its own root
 > `CLAUDE.md` (47 lines, structural overview only). It is being treated as
@@ -353,8 +353,8 @@ The full sweep transcript is at `recon/injection-sweep.txt`.
 | OQ-1 | The pre-existing `CLAUDE.md:40` references `mcp-categories.json` ("Canonical MCP category definitions shared across plugins") but **no such file exists** at this SHA. Is it removed/upcoming/typo? | Phase 2 must avoid citing a phantom file. |
 | OQ-2 | Marketplace install name drift: `README.md:61` uses `claude plugin marketplace add anthropics/claude-for-financial-services`; `claude-for-msft-365-install/README.md:9` uses `anthropics/financial-services-plugins`. Which is canonical at the public release? | Affects EMERALD_ADAPTATION.md install commands. |
 | OQ-3 | LSEG MCP URL drift: `…/financial-analysis/.mcp.json` registers `lseg` at `https://api.analytics.lseg.com/lfa/mcp`; `…/partner-built/lseg/.mcp.json` registers `lseg` at `…/lfa/mcp/server-cl`. Two endpoints or stale config? | Phase 2 deps map; Phase 3 connector swap notes. |
-| OQ-4 | All five vertical `hooks/hooks.json` are literal `[]`. Are hooks reserved-but-empty, or pruned? | Affects whether Emerald hardening can attach Rule 204-2 recordkeeping hooks at these locations. |
-| OQ-5 | `marketplace.json` lists `lseg` and `sp-global` as standalone plugins, but `financial-analysis/.mcp.json` already wires `lseg` and `sp-global` MCPs. Are partner plugins additive (extra skills) or replacements (different URL/auth)? | Phase 2 dependency-graph; affects vendor-data egress bucket. |
+| OQ-4 | All five vertical hooks files (`plugins/vertical-plugins/<v>/hooks/hooks.json`) are literal `[]`. Are hooks reserved-but-empty, or pruned? | Affects whether Emerald hardening can attach Rule 204-2 recordkeeping hooks at these locations. |
+| OQ-5 | `.claude-plugin/marketplace.json` lists `lseg` and `sp-global` as standalone plugins, but `plugins/vertical-plugins/financial-analysis/.mcp.json` already wires `lseg` and `sp-global` MCPs. Are partner plugins additive (extra skills) or replacements (different URL/auth)? | Phase 2 dependency-graph; affects vendor-data egress bucket. |
 | OQ-6 | `pitch-agent.md:4` declares `tools: Read, Write, Edit, mcp__capiq__*` — but the cookbook README lists `deck-writer` as the only writer. Does the orchestrator itself hold `Write` for staging artifacts, or is the frontmatter declaration Cowork-specific and overridden by the CMA agent.yaml? | Phase 2 trust-tier mapping per agent. |
 | OQ-7 | `model-builder` ships an `Excel`-shaped flow ("live in Excel" — `pitch-agent.md`-equivalent: `model-builder.md:2`), and the dcf-model SKILL.md has explicit Office-JS branching (`SKILL.md:14-25`). What is the relationship between Office-JS path and the headless `xlsx-author` skill? | Phase 2 must not double-count workflows. |
 | OQ-8 | `valuation-reviewer`, `statement-auditor`, `month-end-closer` agents all touch fund-admin data but live under different verticals in `managed-agent-cookbooks/README.md` (PE vs financial-analysis). Is this taxonomy load-bearing or cosmetic? | Phase 3 per-agent CLAUDE.md mirror tree organization. |
